@@ -1,6 +1,6 @@
 # 🤖 AutoHeal Locator - JavaScript/TypeScript
 
-[![NPM Version](https://img.shields.io/npm/v/@spgorai/autoheal-locator.svg)](https://www.npmjs.com/package/@spgorai/autoheal-locator)
+[![NPM Version](https://img.shields.io/npm/v/@sdetsanjay/autoheal-locator.svg)](https://www.npmjs.com/package/@sdetsanjay/autoheal-locator)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.2+-blue.svg)](https://www.typescriptlang.org/)
 [![Playwright](https://img.shields.io/badge/Playwright-1.40+-green.svg)](https://playwright.dev/)
@@ -275,13 +275,13 @@ interface AIService {
 ## 📦 Installation
 
 ```bash
-npm install @spgorai/autoheal-locator
+npm install @sdetsanjay/autoheal-locator
 
 # or with yarn
-yarn add @spgorai/autoheal-locator
+yarn add @sdetsanjay/autoheal-locator
 
 # or with pnpm
-pnpm add @spgorai/autoheal-locator
+pnpm add @sdetsanjay/autoheal-locator
 ```
 
 ### Prerequisites
@@ -334,7 +334,7 @@ GEMINI_API_KEY=your_api_key_here
 
 ```typescript
 import { chromium } from 'playwright';
-import { AutoHealLocator } from '@spgorai/autoheal-locator';
+import { AutoHealLocator } from '@sdetsanjay/autoheal-locator';
 
 const browser = await chromium.launch();
 const page = await browser.newPage();
@@ -367,7 +367,7 @@ autoHeal.shutdown();
 
 ```typescript
 import { Builder } from 'selenium-webdriver';
-import { AutoHealLocator } from '@spgorai/autoheal-locator';
+import { AutoHealLocator } from '@sdetsanjay/autoheal-locator';
 
 const driver = await new Builder().forBrowser('chrome').build();
 
@@ -452,7 +452,7 @@ AUTOHEAL_ENABLE_DEBUG_LOGS=false
 ### Programmatic Configuration
 
 ```typescript
-import { AutoHealLocator, AIProvider, CacheType, ExecutionStrategy } from '@spgorai/autoheal-locator';
+import { AutoHealLocator, AIProvider, CacheType, ExecutionStrategy } from '@sdetsanjay/autoheal-locator';
 
 const autoHeal = AutoHealLocator.builder()
   .withPlaywrightPage(page)
@@ -503,7 +503,7 @@ const autoHeal = AutoHealLocator.builder()
 ```typescript
 // helpers/AutoHealHelper.ts
 import { Page } from 'playwright';
-import { AutoHealLocator, ExecutionStrategy } from '@spgorai/autoheal-locator';
+import { AutoHealLocator, ExecutionStrategy } from '@sdetsanjay/autoheal-locator';
 
 export class AutoHealHelper {
   private static instance: AutoHealLocator | null = null;
@@ -631,7 +631,7 @@ AutoHeal supports multiple strategies for element healing:
 ### Setting Strategy
 
 ```typescript
-import { ExecutionStrategy } from '@spgorai/autoheal-locator';
+import { ExecutionStrategy } from '@sdetsanjay/autoheal-locator';
 
 // Option 1: Builder pattern
 const autoHeal = AutoHealLocator.builder()
@@ -687,7 +687,7 @@ AutoHeal supports two cache types:
 | `MEMORY` | ❌ In-memory only | ⚡⚡⚡ Fast | Local development |
 
 ```typescript
-import { CacheType } from '@spgorai/autoheal-locator';
+import { CacheType } from '@sdetsanjay/autoheal-locator';
 
 const autoHeal = AutoHealLocator.builder()
   .withPlaywrightPage(page)
@@ -837,7 +837,7 @@ autoHeal.shutdown();
 
 | Feature | Java Implementation | JavaScript/TypeScript |
 |---------|-------------------|---------------------|
-| **Repository** | [SanjayPG/autoheal-locator](https://github.com/SanjayPG/autoheal-locator) | [@spgorai/autoheal-locator](https://github.com/spgorai/autoheal-locator) |
+| **Repository** | [SanjayPG/autoheal-locator](https://github.com/SanjayPG/autoheal-locator) | [@sdetsanjay/autoheal-locator](https://github.com/spgorai/autoheal-locator) |
 | **Package Manager** | Maven/Gradle | npm/yarn/pnpm |
 | **Language** | Java 17+ | TypeScript/JavaScript |
 | **Playwright** | ✅ Java API | ✅ Node.js API |
@@ -892,7 +892,7 @@ npx ts-node examples/playwright-example.ts
 
 ### Stay Updated
 - **GitHub**: https://github.com/spgorai/autoheal-locator
-- **NPM Package**: https://www.npmjs.com/package/@spgorai/autoheal-locator
+- **NPM Package**: https://www.npmjs.com/package/@sdetsanjay/autoheal-locator
 
 ---
 
@@ -943,8 +943,8 @@ SOFTWARE.
 **Self-Healing Tests • AI-Powered • Playwright & Selenium**
 
 [![GitHub Stars](https://img.shields.io/github/stars/spgorai/autoheal-locator?style=social)](https://github.com/spgorai/autoheal-locator)
-[![NPM Downloads](https://img.shields.io/npm/dm/@spgorai/autoheal-locator)](https://www.npmjs.com/package/@spgorai/autoheal-locator)
+[![NPM Downloads](https://img.shields.io/npm/dm/@sdetsanjay/autoheal-locator)](https://www.npmjs.com/package/@sdetsanjay/autoheal-locator)
 
-[⭐ Star on GitHub](https://github.com/spgorai/autoheal-locator) • [📦 View on NPM](https://www.npmjs.com/package/@spgorai/autoheal-locator) • [📖 Java Version](https://github.com/SanjayPG/autoheal-locator)
+[⭐ Star on GitHub](https://github.com/spgorai/autoheal-locator) • [📦 View on NPM](https://www.npmjs.com/package/@sdetsanjay/autoheal-locator) • [📖 Java Version](https://github.com/SanjayPG/autoheal-locator)
 
 </div>

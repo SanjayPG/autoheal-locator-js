@@ -1,5 +1,5 @@
 {
-  "name": "@spgorai/autoheal-locator",
+  "name": "@sdetsanjay/autoheal-locator",
   "version": "1.0.0",
   "description": "AI-powered test automation framework that automatically heals broken locators for Playwright and Selenium WebDriver in JavaScript/TypeScript",
   "main": "dist/index.js",
