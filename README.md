@@ -6,7 +6,7 @@
 [![Playwright](https://img.shields.io/badge/Playwright-1.40+-green.svg)](https://playwright.dev/)
 [![Selenium](https://img.shields.io/badge/Selenium-4.15+-green.svg)](https://www.selenium.dev/)
 [![Node](https://img.shields.io/badge/Node-16+-green.svg)](https://nodejs.org/)
-[![GitHub](https://img.shields.io/badge/GitHub-autoheal--locator--js-blue)](https://github.com/spgorai/autoheal-locator-js)
+[![GitHub](https://img.shields.io/badge/GitHub-autoheal--locator--js-blue)](https://github.com/SanjayPG/autoheal-locator-js)
 
 > **AI-powered self-healing test automation framework for Playwright and Selenium WebDriver.**
 
