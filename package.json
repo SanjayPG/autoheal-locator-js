@@ -48,13 +48,13 @@
   ],
   "author": "Sanjay Gorai <spgorai@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/spgorai/autoheal-locator#readme",
+  "homepage": "https://github.com/spgorai/autoheal-locator-js#readme",
   "bugs": {
-    "url": "https://github.com/spgorai/autoheal-locator/issues"
+    "url": "https://github.com/spgorai/autoheal-locator-js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spgorai/autoheal-locator.git"
+    "url": "git+https://github.com/spgorai/autoheal-locator-js.git"
   },
   "engines": {
     "node": ">=16.0.0"
