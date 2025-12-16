@@ -1,0 +1,95 @@
+{
+  "name": "@spgorai/autoheal-locator",
+  "version": "1.0.0",
+  "description": "AI-powered test automation framework that automatically heals broken locators for Playwright and Selenium WebDriver in JavaScript/TypeScript",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "AI_PROVIDERS.md"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "clear-cache": "node clear-cache.js",
+    "prepublishOnly": "npm run build",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "playwright",
+    "selenium",
+    "webdriver",
+    "test-automation",
+    "autoheal",
+    "self-healing",
+    "ai",
+    "element-locator",
+    "flaky-tests",
+    "test-maintenance",
+    "gemini",
+    "openai",
+    "anthropic",
+    "claude",
+    "deepseek",
+    "grok",
+    "ai-testing",
+    "locator-healing",
+    "multi-provider",
+    "typescript",
+    "javascript"
+  ],
+  "author": "Sanjay Gorai <spgorai@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/spgorai/autoheal-locator#readme",
+  "bugs": {
+    "url": "https://github.com/spgorai/autoheal-locator/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spgorai/autoheal-locator.git"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "lru-cache": "^10.0.0"
+  },
+  "peerDependencies": {
+    "playwright": "^1.40.0",
+    "selenium-webdriver": "^4.15.0"
+  },
+  "peerDependenciesMeta": {
+    "playwright": {
+      "optional": true
+    },
+    "selenium-webdriver": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "@types/selenium-webdriver": "^4.35.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.50.0",
+    "jest": "^29.7.0",
+    "playwright": "^1.40.0",
+    "prettier": "^3.0.0",
+    "rimraf": "^6.0.0",
+    "selenium-webdriver": "^4.39.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.2.0"
+  }
+}

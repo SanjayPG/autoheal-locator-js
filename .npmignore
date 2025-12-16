@@ -1,0 +1,43 @@
+# Source files (only dist/ should be published)
+src/
+tests/
+examples/
+
+# Config files
+tsconfig.json
+jest.config.js
+.eslintrc.js
+.prettierrc
+
+# Development files
+*.test.ts
+*.spec.ts
+.vscode/
+.idea/
+
+# Build artifacts
+*.tsbuildinfo
+coverage/
+
+# Documentation (README.md, LICENSE, and AI_PROVIDERS.md will be included)
+docs/
+IMPLEMENTATION_SUMMARY.md
+GETTING_STARTED.md
+QUICK_PROVIDER_SETUP.md
+MULTI_PROVIDER_IMPLEMENTATION_SUMMARY.md
+
+# Environment and local files
+.env
+.env.*
+!.env.example
+
+# Cache and temp
+autoheal-cache/
+autoheal-reports/
+node_modules/
+*.log
+.DS_Store
+
+# Git
+.git/
+.gitignore
