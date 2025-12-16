@@ -51,17 +51,41 @@ Test automation often breaks due to:
 - A/B testing variations
 - Internationalization changes
 
-**Traditional Approach:**
+**Playwright - Traditional Approach:**
 ```typescript
-// ❌ Test fails when button ID changes from 'submit-btn' to 'submit-button'
-await page.locator('#submit-btn').click();
+// ❌ Test fails when button name changes from 'Submit' to 'Submit Form'
+await page.getByRole('button', { name: 'Submit' }).click();
 // Result: Test fails, manual fix required
 ```
 
-**AutoHeal Approach:**
+**Playwright - AutoHeal Approach:**
+```typescript
+// ✅ Test continues working even when button name changes
+const button = await autoHeal.find(
+  page,
+  page.getByRole('button', { name: 'Submit' }),  // Native Playwright locator
+  'Submit button'  // Description for AI healing
+);
+await button.click();
+// Result: AutoHeal finds the button using AI, test passes
+```
+
+**Selenium - Traditional Approach:**
+```typescript
+// ❌ Test fails when button ID changes from 'submit-btn' to 'submit-button'
+const button = await driver.findElement(By.id('submit-btn'));
+await button.click();
+// Result: Test fails, manual fix required
+```
+
+**Selenium - AutoHeal Approach:**
 ```typescript
 // ✅ Test continues working even when button ID changes
-const button = await autoHeal.find(page, '#submit-btn', 'Submit button');
+const button = await autoHeal.findElement(
+  driver,
+  'submit-btn',  // ID, CSS, or XPath - auto-detected
+  'Submit button'  // Description for AI healing
+);
 await button.click();
 // Result: AutoHeal finds the button using AI, test passes
 ```
@@ -149,6 +173,42 @@ Multiple AI provider support:
 │   Adapter   │ │    Cache    │ │  AI Service │
 │  (PW/Sel)   │ │ (File/Mem)  │ │  (Gemini)   │
 └─────────────┘ └─────────────┘ └─────────────┘
+```
+
+### Healing Workflow
+
+The following diagram illustrates the intelligent detection and healing process:
+
+```mermaid
+flowchart TD
+    A[🧪 Test calls autoHeal.find/findElement] --> B{🔍 Detect Framework}
+    B -->|Selenium| C[📝 Auto-detect Locator Type<br/>CSS, XPath, ID, etc.]
+    B -->|Playwright| D[🎭 Parse Playwright Locator<br/>getByRole, filters, etc.]
+
+    C --> E{🎯 Try Original Selector}
+    D --> E
+
+    E -->|✅ Success| F[🎉 Return Element/Locator]
+    E -->|❌ Failed| G{💾 Check Cache}
+
+    G -->|🎯 Hit| H[🚀 Use Cached Fix]
+    G -->|❌ Miss| I{🤖 AI Healing}
+
+    H --> J{Test Cached}
+    J -->|✅ Works| F
+    J -->|❌ Failed| I
+
+    I --> K[🧠 DOM Analysis<br/>📸 Visual Analysis]
+    K --> L{Found?}
+    L -->|✅ Yes| M[💾 Cache Result]
+    L -->|❌ No| N[💥 Throw Exception]
+
+    M --> F
+
+    style A fill:#e3f2fd
+    style F fill:#e8f5e9
+    style N fill:#ffebee
+    style K fill:#fff8e1
 ```
 
 ### Component Architecture
@@ -789,9 +849,9 @@ shutdown(): void                 // Shutdown and persist cache
 
 **Before:**
 ```typescript
-await page.locator('#username').fill('user');
-await page.locator('#password').fill('pass');
-await page.locator('#login-btn').click();
+await page.getByRole('textbox', { name: 'Username' }).fill('user');
+await page.getByRole('textbox', { name: 'Password' }).fill('pass');
+await page.getByRole('button', { name: 'Login' }).click();
 ```
 
 **After:**
@@ -801,9 +861,21 @@ const autoHeal = AutoHealLocator.builder()
   .withAIProvider('gemini')
   .build();
 
-const username = await autoHeal.find(page, '#username', 'Username field');
-const password = await autoHeal.find(page, '#password', 'Password field');
-const loginBtn = await autoHeal.find(page, '#login-btn', 'Login button');
+const username = await autoHeal.find(
+  page,
+  page.getByRole('textbox', { name: 'Username' }),  // Native Playwright locator
+  'Username field'  // Description for AI healing
+);
+const password = await autoHeal.find(
+  page,
+  page.getByRole('textbox', { name: 'Password' }),  // Native Playwright locator
+  'Password field'  // Description for AI healing
+);
+const loginBtn = await autoHeal.find(
+  page,
+  page.getByRole('button', { name: 'Login' }),  // Native Playwright locator
+  'Login button'  // Description for AI healing
+);
 
 await username.fill('user');
 await password.fill('pass');
@@ -837,7 +909,7 @@ autoHeal.shutdown();
 
 | Feature | Java Implementation | JavaScript/TypeScript |
 |---------|-------------------|---------------------|
-| **Repository** | [SanjayPG/autoheal-locator](https://github.com/SanjayPG/autoheal-locator) | [@sdetsanjay/autoheal-locator](https://github.com/spgorai/autoheal-locator) |
+| **Repository** | [SanjayPG/autoheal-locator](https://github.com/SanjayPG/autoheal-locator) | [@sdetsanjay/autoheal-locator](https://github.com/SanjayPG/autoheal-locator-js) |
 | **Package Manager** | Maven/Gradle | npm/yarn/pnpm |
 | **Language** | Java 17+ | TypeScript/JavaScript |
 | **Playwright** | ✅ Java API | ✅ Node.js API |
@@ -857,7 +929,7 @@ Contributions are welcome! This is the JavaScript/TypeScript port of the [Java i
 
 ```bash
 # Clone the repository
-git clone https://github.com/spgorai/autoheal-locator.git
+git clone https://github.com/SanjayPG/autoheal-locator-js.git
 cd autoheal-locator
 
 # Install dependencies
@@ -886,12 +958,12 @@ npx ts-node examples/playwright-example.ts
 - **Java Version**: [Java AutoHeal Docs](https://github.com/SanjayPG/autoheal-locator)
 
 ### Get Help
-- **Bug Reports**: [GitHub Issues](https://github.com/spgorai/autoheal-locator/issues)
-- **Feature Requests**: [GitHub Issues](https://github.com/spgorai/autoheal-locator/issues)
-- **Questions**: [GitHub Discussions](https://github.com/spgorai/autoheal-locator/discussions)
+- **Bug Reports**: [GitHub Issues](https://github.com/SanjayPG/autoheal-locator-js/issues)
+- **Feature Requests**: [GitHub Issues](https://github.com/SanjayPG/autoheal-locator-js/issues)
+- **Questions**: [GitHub Discussions](https://github.com/SanjayPG/autoheal-locator-js/discussions)
 
 ### Stay Updated
-- **GitHub**: https://github.com/spgorai/autoheal-locator
+- **GitHub**: https://github.com/SanjayPG/autoheal-locator-js
 - **NPM Package**: https://www.npmjs.com/package/@sdetsanjay/autoheal-locator
 
 ---
@@ -900,8 +972,8 @@ npx ts-node examples/playwright-example.ts
 
 If AutoHeal Locator is saving your team time and reducing test maintenance, consider supporting the project:
 
-- ☕ [Buy Me a Coffee](https://www.buymeacoffee.com/spgorai)
-- ⭐ [Star the Repository](https://github.com/spgorai/autoheal-locator)
+- ☕ [Buy Me a Coffee](https://buymeacoffee.com/sdetsanjay)
+- ⭐ [Star the Repository](https://github.com/SanjayPG/autoheal-locator-js)
 - 📢 Share with your team and community
 
 Your support helps maintain and improve AutoHeal Locator!
@@ -942,9 +1014,9 @@ SOFTWARE.
 
 **Self-Healing Tests • AI-Powered • Playwright & Selenium**
 
-[![GitHub Stars](https://img.shields.io/github/stars/spgorai/autoheal-locator?style=social)](https://github.com/spgorai/autoheal-locator)
+[![GitHub Stars](https://img.shields.io/github/stars/SanjayPG/autoheal-locator-js?style=social)](https://github.com/SanjayPG/autoheal-locator-js)
 [![NPM Downloads](https://img.shields.io/npm/dm/@sdetsanjay/autoheal-locator)](https://www.npmjs.com/package/@sdetsanjay/autoheal-locator)
 
-[⭐ Star on GitHub](https://github.com/spgorai/autoheal-locator) • [📦 View on NPM](https://www.npmjs.com/package/@sdetsanjay/autoheal-locator) • [📖 Java Version](https://github.com/SanjayPG/autoheal-locator)
+[⭐ Star on GitHub](https://github.com/SanjayPG/autoheal-locator-js) • [📦 View on NPM](https://www.npmjs.com/package/@sdetsanjay/autoheal-locator) • [📖 Java Version](https://github.com/SanjayPG/autoheal-locator)
 
 </div>
