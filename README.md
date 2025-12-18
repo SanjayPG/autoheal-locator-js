@@ -149,6 +149,12 @@ await button.click();
 - Teams spending significant time on test maintenance
 - CI/CD pipelines with flaky tests
 
+### ⚠️ Important Limitations
+
+**False Positives**: AutoHeal may target visually similar but functionally different elements when original elements are removed or changed. This can cause tests to pass while the actual user experience is broken, especially with text- or role-based selectors.
+
+**Performance Impact**: While effective for minor changes like attribute updates, AutoHeal struggles with significant DOM restructuring. Healing attempts add execution overhead, which compounds in large test suites and CI/CD pipelines.
+
 ---
 
 ## 🚀 Key Features
