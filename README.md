@@ -10,7 +10,7 @@
 
 > **AI-powered self-healing test automation framework for Playwright and Selenium WebDriver in TypeScript/JavaScript.**
 
-AutoHeal Locator automatically fixes broken element locators when UI changes occur, using intelligent DOM analysis, visual recognition, and smart fallback strategies powered by AI. When your element locators break due to UI changes, AutoHeal intelligently finds the elements and adapts your tests automatically.
+AutoHeal Locator automatically fixes broken element locators when UI changes occur, using intelligent DOM analysis, visual recognition, and smart fallback strategies powered by AI.
 
 ---
 
