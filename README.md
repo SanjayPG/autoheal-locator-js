@@ -8,9 +8,46 @@
 [![Node](https://img.shields.io/badge/Node-16+-green.svg)](https://nodejs.org/)
 [![GitHub](https://img.shields.io/badge/GitHub-autoheal--locator--js-blue)](https://github.com/SanjayPG/autoheal-locator-js)
 
-> **AI-powered self-healing test automation framework for Playwright and Selenium WebDriver.**
+> **AI-powered self-healing test automation framework for Playwright and Selenium WebDriver in TypeScript/JavaScript.**
 
-AutoHeal Locator automatically fixes broken element locators when UI changes occur, using intelligent DOM analysis, visual recognition, and smart fallback strategies powered by AI.
+AutoHeal Locator automatically fixes broken element locators when UI changes occur, using intelligent DOM analysis, visual recognition, and smart fallback strategies powered by AI. When your element locators break due to UI changes, AutoHeal intelligently finds the elements and adapts your tests automatically.
+
+---
+
+## 🎯 Choose Your Framework
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🟢 Selenium
+Traditional WebDriver-based automation
+- ✅ All locator types (CSS, XPath, ID, etc.)
+- ✅ TypeScript/JavaScript API
+- ✅ Mature ecosystem
+- ✅ Wide browser support
+
+**[📖 Selenium Demo - START_HERE.md](https://github.com/SanjayPG/autoheal-selenium-demo-ts/blob/main/START_HERE.md)**
+
+**[📖 Selenium Demo - README.md](https://github.com/SanjayPG/autoheal-selenium-demo-ts)**
+
+</td>
+<td width="50%" valign="top">
+
+### 🔵 Playwright
+Modern automation framework
+- ✅ Built-in auto-waiting
+- ✅ Native network interception
+- ✅ Multi-browser contexts
+- ✅ Powerful selectors with filters
+
+**[📖 Playwright Demo - START_HERE.md](https://github.com/SanjayPG/autoheal-playwright-demo-ts/blob/main/START_HERE.md)**
+
+**[📖 Playwright Demo - README.md](https://github.com/SanjayPG/autoheal-playwright-demo-ts)**
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -671,8 +708,8 @@ test.describe('Login Tests', () => {
 ```
 
 For more examples and complete documentation, visit:
-- **Playwright Demo**: https://github.com/spgorai/autoheal-playwright-demo-ts
-- **Selenium Demo**: https://github.com/spgorai/autoheal-selenium-demo-ts
+- **Playwright Demo**: [START_HERE.md](https://github.com/SanjayPG/autoheal-playwright-demo-ts/blob/main/START_HERE.md) | [README.md](https://github.com/SanjayPG/autoheal-playwright-demo-ts)
+- **Selenium Demo**: [START_HERE.md](https://github.com/SanjayPG/autoheal-selenium-demo-ts/blob/main/START_HERE.md) | [README.md](https://github.com/SanjayPG/autoheal-selenium-demo-ts)
 
 ---
 
@@ -945,8 +982,8 @@ npx ts-node examples/playwright-example.ts
 ### Related Projects
 
 - **Java Version**: [SanjayPG/autoheal-locator](https://github.com/SanjayPG/autoheal-locator)
-- **Playwright Demo**: [spgorai/autoheal-playwright-demo-ts](https://github.com/spgorai/autoheal-playwright-demo-ts)
-- **Selenium Demo**: [spgorai/autoheal-selenium-demo-ts](https://github.com/spgorai/autoheal-selenium-demo-ts)
+- **Playwright Demo**: [SanjayPG/autoheal-playwright-demo-ts](https://github.com/SanjayPG/autoheal-playwright-demo-ts) - [START_HERE.md](https://github.com/SanjayPG/autoheal-playwright-demo-ts/blob/main/START_HERE.md)
+- **Selenium Demo**: [SanjayPG/autoheal-selenium-demo-ts](https://github.com/SanjayPG/autoheal-selenium-demo-ts) - [START_HERE.md](https://github.com/SanjayPG/autoheal-selenium-demo-ts/blob/main/START_HERE.md)
 
 ---
 
