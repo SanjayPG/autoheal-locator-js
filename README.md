@@ -8,9 +8,9 @@
 [![Node](https://img.shields.io/badge/Node-16+-green.svg)](https://nodejs.org/)
 [![GitHub](https://img.shields.io/badge/GitHub-autoheal--locator--js-blue)](https://github.com/SanjayPG/autoheal-locator-js)
 
-> **AI-powered self-healing test automation framework for Playwright and Selenium WebDriver in TypeScript/JavaScript.**
+> **AI-powered test automation framework that automatically heals broken locators for both Selenium and Playwright in TypeScript/JavaScript.**
 
-AutoHeal Locator automatically fixes broken element locators when UI changes occur, using intelligent DOM analysis, visual recognition, and smart fallback strategies powered by AI.
+When your element locators break due to UI changes, AutoHeal intelligently finds the elements using DOM analysis, visual recognition, and smart fallback strategies.
 
 ---
 
