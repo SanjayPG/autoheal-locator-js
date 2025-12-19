@@ -128,21 +128,36 @@ export class DeepSeekService implements AIService {
     const truncatedHtml = html.length > 15000 ? html.substring(0, 15000) + '...' : html;
 
     if (framework === AutomationFramework.PLAYWRIGHT) {
-      return `You are an expert in Playwright test automation. Analyze this HTML and find the best Playwright selector.
+      return `You are an expert in Playwright test automation. Analyze this HTML and find the SIMPLEST, most ROBUST selector.
 
 **CRITICAL RULES:**
 1. You MUST respond with ONLY a JSON object
 2. Return Playwright selector engine syntax that works with page.locator()
-3. **Prefer built-in Playwright selector engines over CSS selectors** in this order:
-   - data-testid=value - for data-testid attributes. Example: data-testid=login-button
-   - role=button[name="Submit"] - for accessible roles. Example: role=button[name="Login"]
-   - text=Welcome - for exact text content. Example: text=Login
-   - placeholder="Enter username" - for input placeholders
-   - CSS selector as last resort. Example: #user-name or [data-test='username']
-4. For role selectors, use accessible roles: button, link, textbox, checkbox, radio, heading, etc.
-5. For role selectors with name, use format: role=button[name="Text"]
-6. Ensure selector is unique and specific
-7. Avoid fragile selectors: complex class names, nth-child, long paths
+3. **CONTEXT-AWARE selector priority** - Choose based on element type and DOM simplicity:
+
+   **For simple DOM with stable attributes (id, name, type), ALWAYS prefer:**
+   a) ID: #element-id or id=element-id
+   b) Type attribute: input[type='password'], input[type='submit'], input[type='text'], button[type='button']
+   c) Name attribute: input[name='username'], [name='fieldname']
+   d) data-testid: data-testid=value or [data-testid='value']
+
+   **For complex UI or when stable attributes are missing:**
+   e) role selectors: role=button[name="Submit"]
+   f) placeholder: placeholder="Enter text"
+   g) text content: text=Exact Text
+
+4. **CRITICAL: For INPUT elements** - Check id, name, type attributes FIRST before considering role selectors
+5. **CRITICAL: For BUTTON/SUBMIT elements** - Check id, type='submit', type='button', value attributes FIRST before role selectors
+6. Ensure selector is UNIQUE (finds exactly ONE element in the HTML)
+7. AVOID fragile selectors: generated IDs (like btn_123_xyz), complex class names, nth-child, long paths
+8. **Simple DOM = Simple selector** - Don't over-complicate with role selectors when a simple CSS selector with stable attributes works perfectly
+
+**Analysis Steps:**
+Step 1: Check if element has stable id attribute → Use #id or id=id
+Step 2: Check if element is INPUT/BUTTON with type attribute → Use input[type='X'] or button[type='X']
+Step 3: Check if element has stable name attribute → Use [name='X']
+Step 4: Check if element has data-testid → Use data-testid=X
+Step 5: Only then consider role selectors or text-based selectors
 
 **Element to find:** ${description}
 **Original selector that failed:** ${originalSelector}
@@ -152,11 +167,17 @@ ${truncatedHtml}
 
 **Required JSON Response Format:**
 {
-  "selector": "data-testid=directions",
+  "selector": "#username",
   "confidence": 0.95,
-  "reasoning": "Found button with data-testid attribute",
-  "alternatives": ["role=button[name='Directions']", "[data-testid='directions']"]
+  "reasoning": "Found input with stable id='username' attribute",
+  "alternatives": ["input[name='username']", "input[type='text'][name='username']"]
 }
+
+**Example Responses for simple DOMs:**
+- Password field: {"selector": "input[type='password']", "confidence": 0.95, "reasoning": "Unique password input with type attribute"}
+- Submit button: {"selector": "input[type='submit']", "confidence": 0.95, "reasoning": "Unique submit button with type attribute"}
+- Button with ID: {"selector": "#signInBtn", "confidence": 0.98, "reasoning": "Stable ID attribute"}
+- Input with name: {"selector": "input[name='email']", "confidence": 0.95, "reasoning": "Stable name attribute"}
 
 Respond with ONLY valid JSON:`;
     } else {
