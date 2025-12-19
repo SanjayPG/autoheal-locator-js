@@ -119,9 +119,8 @@ await button.click();
 ```typescript
 // ✅ Test continues working even when button ID changes
 const button = await autoHeal.findElement(
-  driver,
-  'submit-btn',  // ID, CSS, or XPath - auto-detected
-  'Submit button'  // Description for AI healing
+  'submit-btn',      // ID, CSS, or XPath - auto-detected
+  'Submit button'    // Description for AI healing
 );
 await button.click();
 // Result: AutoHeal finds the button using AI, test passes
