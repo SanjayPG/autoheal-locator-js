@@ -20,5 +20,12 @@ export interface AIProviderConfig {
   model?: string;
   timeout?: number;
   maxRetries?: number;
+
+  // LOCAL provider options
   baseUrl?: string;
+  apiPath?: string;
+  format?: 'openai' | 'ollama' | 'custom';
+  headers?: Record<string, string>;
+  temperature?: number;
+  maxTokens?: number;
 }

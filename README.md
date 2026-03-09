@@ -759,7 +759,8 @@ AUTOHEAL_EXECUTION_STRATEGY=SMART_SEQUENTIAL
 | **Anthropic Claude** | claude-3-sonnet | ⚡⚡ | 💰💰 | Complex reasoning |
 | **DeepSeek** | deepseek-chat | ⚡⚡ | 💰 | Cost-effective |
 | **Grok** | grok-beta | ⚡⚡ | 💰💰 | Real-time data |
-| **Groq** | llama-70b-8192 | ⚡⚡⚡ | 💰 | Ultra-fast |
+| **Groq** | llama-3.3-70b-versatile | ⚡⚡⚡ | 💰 | Fast inference |
+| **LOCAL** | Custom models | Varies | **FREE** | Privacy, custom models |
 
 ### Quick Setup
 
@@ -769,6 +770,12 @@ const autoHeal = AutoHealLocator.builder()
   .withPlaywrightPage(page)
   .withAIProvider('gemini') // Reads GEMINI_API_KEY from env
   .build();
+
+// Using local models (FREE - no API key needed)
+const localAutoHeal = AutoHealLocator.builder()
+  .withPlaywrightPage(page)
+  .withLocalModel('http://localhost:8000') // Your local endpoint
+  .build();
 ```
 
 Get API Keys:
@@ -776,6 +783,7 @@ Get API Keys:
 - **OpenAI**: https://platform.openai.com/api-keys
 - **Anthropic**: https://console.anthropic.com/
 - **DeepSeek**: https://platform.deepseek.com/
+- **LOCAL Models**: See [LOCAL_MODEL_SUPPORT.md](docs/LOCAL_MODEL_SUPPORT.md)
 
 ---
 

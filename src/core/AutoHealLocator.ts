@@ -11,6 +11,7 @@ import { AnthropicService } from '../ai/AnthropicService';
 import { DeepSeekService } from '../ai/DeepSeekService';
 import { GrokService } from '../ai/GrokService';
 import { GroqAIService } from '../ai/GroqAIService';
+import { LocalModelService } from '../ai/LocalModelService';
 import { MemoryCache } from '../cache/MemoryCache';
 import { FileCache } from '../cache/FileCache';
 import {
@@ -959,6 +960,68 @@ export class AutoHealLocatorBuilder {
   }
 
   /**
+   * Configure local/custom AI model endpoint
+   *
+   * Supports:
+   * - Localhost: http://localhost:8000
+   * - Cloudflare tunnels: https://xyz.trycloudflare.com
+   * - ngrok: https://xyz.ngrok.io
+   * - Any OpenAI-compatible endpoint
+   *
+   * @param baseUrl - Base URL of your endpoint
+   * @param options - Configuration options
+   *
+   * @example
+   * ```typescript
+   * // Localhost
+   * builder.withLocalModel('http://localhost:8000')
+   *
+   * // Cloudflare tunnel
+   * builder.withLocalModel('https://abc.trycloudflare.com', {
+   *   apiPath: '/v1/chat/completions',
+   *   model: 'deepseek-coder-v2:16b',
+   *   timeout: 60000
+   * })
+   *
+   * // Ollama
+   * builder.withLocalModel('http://localhost:11434', {
+   *   format: 'ollama',
+   *   model: 'llama2',
+   *   apiPath: '/api/generate'
+   * })
+   * ```
+   */
+  withLocalModel(baseUrl: string, options?: {
+    apiPath?: string;
+    format?: 'openai' | 'ollama' | 'custom';
+    model?: string;
+    temperature?: number;
+    maxTokens?: number;
+    timeout?: number;
+    headers?: Record<string, string>;
+  }): this {
+    if (!this.customConfig) {
+      this.customConfig = {};
+    }
+
+    this.customConfig.ai = {
+      provider: AIProvider.LOCAL,
+      timeout: options?.timeout || 30000,
+      maxRetries: 3,
+      visualAnalysisEnabled: false, // Local models typically don't support vision
+      baseUrl: baseUrl,
+      apiPath: options?.apiPath || '/v1/chat/completions',
+      format: options?.format || 'openai',
+      model: options?.model || 'local-model',
+      temperature: options?.temperature ?? 0.1,
+      maxTokens: options?.maxTokens || 2048,
+      headers: options?.headers || {},
+    } as any;
+
+    return this;
+  }
+
+  /**
    * Set execution strategy
    */
   withStrategy(strategy: ExecutionStrategy): this {
@@ -1005,7 +1068,8 @@ export class AutoHealLocatorBuilder {
     let apiKey = config.ai.apiKey;
 
     // Get API key from environment if not provided in config
-    if (!apiKey) {
+    // Skip API key check for LOCAL provider
+    if (!apiKey && provider !== AIProvider.LOCAL) {
       switch (provider) {
         case AIProvider.GOOGLE_GEMINI:
           apiKey = process.env.GEMINI_API_KEY;
@@ -1030,7 +1094,7 @@ export class AutoHealLocatorBuilder {
       }
     }
 
-    if (!apiKey) {
+    if (!apiKey && provider !== AIProvider.LOCAL) {
       throw new Error(
         `AI API key is required for ${provider}. Set ${provider}_API_KEY environment variable or provide apiKey in config`
       );
@@ -1041,21 +1105,35 @@ export class AutoHealLocatorBuilder {
     const timeout = config.ai.timeout || 30000;
 
     // Create appropriate service based on provider
+    // Note: apiKey is guaranteed to be defined for non-LOCAL providers by the check above
     switch (provider) {
       case AIProvider.GOOGLE_GEMINI:
-        return new GeminiAIService(apiKey, model, timeout);
+        return new GeminiAIService(apiKey!, model, timeout);
       case AIProvider.OPENAI:
-        return new OpenAIService(apiKey, model, timeout);
+        return new OpenAIService(apiKey!, model, timeout);
       case AIProvider.ANTHROPIC:
-        return new AnthropicService(apiKey, model, timeout);
+        return new AnthropicService(apiKey!, model, timeout);
       case AIProvider.DEEPSEEK:
-        return new DeepSeekService(apiKey, model, timeout);
+        return new DeepSeekService(apiKey!, model, timeout);
       case AIProvider.GROK:
-        return new GrokService(apiKey, model, timeout);
+        return new GrokService(apiKey!, model, timeout);
       case AIProvider.GROQ:
-        return new GroqAIService(apiKey, model, timeout);
+        return new GroqAIService(apiKey!, model, timeout);
       case AIProvider.LOCAL:
-        throw new Error('LOCAL provider requires custom AIService implementation via withAIService()');
+        const localConfig = config.ai as any;
+        if (!localConfig.baseUrl) {
+          throw new Error('LOCAL provider requires baseUrl. Use .withLocalModel(baseUrl, options)');
+        }
+        return new LocalModelService({
+          baseUrl: localConfig.baseUrl as string,
+          apiPath: (localConfig.apiPath as string | undefined) || '/v1/chat/completions',
+          format: (localConfig.format as 'openai' | 'ollama' | 'custom' | undefined) || 'openai',
+          model: (localConfig.model as string | undefined) || 'local-model',
+          temperature: localConfig.temperature ?? 0.1,
+          maxTokens: localConfig.maxTokens || 2048,
+          timeout: localConfig.timeout || 30000,
+          headers: (localConfig.headers as Record<string, string> | undefined) || {},
+        });
       default:
         throw new Error(`Unsupported AI provider: ${provider}`);
     }

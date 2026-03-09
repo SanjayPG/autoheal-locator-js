@@ -28,12 +28,12 @@ async function main() {
      await page.goto('file:///C:/Users/debsa/OneDrive/Desktop/Test11.html');
     // // const usernameLocator = await autoHeal.find(page, '#user-name', 'Username input field');
 
-    // const submitButton = await autoHeal.find(
-    //   page,
-    //   page.getByRole('button', { name: 'Submit' }),  // Native Playwright Locator 
-    //   'First Submit button description'  // Description for AI healing
-    // );
-    // await submitButton.click();
+    const submitButton = await autoHeal.find(
+      page,
+      page.getByRole('button', { name: 'Submit1234' }),  // Native Playwright Locator 
+      'First Submit button description'  // Description for AI healing
+    );
+    await submitButton.click();
     
     // //Locate by text example
     //  const welcometext = await autoHeal.find(
@@ -81,15 +81,15 @@ async function main() {
 
     //chain filter example, instaed if goodbye it is goodboy (wrong locator)
 
-  const rowLocator = await autoHeal.find(
-    page,
-    page.getByRole('listitem')
-      .filter({ hasText: 'Marry' })
-      .filter({ has: page.getByRole('button', { name: 'Say goodboy' }) }),
-    'List item containing Mary with Say goodbye button'  // Description for AI healing
-  );
-  await rowLocator.click();
-  await page.waitForTimeout(5000);
+  // const rowLocator = await autoHeal.find(
+  //   page,
+  //   page.getByRole('listitem')
+  //     .filter({ hasText: 'Marry' })
+  //     .filter({ has: page.getByRole('button', { name: 'Say goodboy' }) }),
+  //   'List item containing Mary with Say goodbye button'  // Description for AI healing
+  // );
+  // await rowLocator.click();
+  // await page.waitForTimeout(5000);
 
 
     //console.log('=== Example 1: Simple selector ===');

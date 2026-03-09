@@ -60,6 +60,14 @@ export interface AIConfig {
   timeout: number;
   maxRetries: number;
   visualAnalysisEnabled: boolean;
+
+  // LOCAL provider configuration
+  baseUrl?: string;
+  apiPath?: string;
+  format?: 'openai' | 'ollama' | 'custom';
+  headers?: Record<string, string>;
+  temperature?: number;
+  maxTokens?: number;
 }
 
 /**
@@ -164,6 +172,46 @@ function loadFromEnvironment(): Partial<AutoHealConfiguration> {
       maxRetries: parseInt(process.env.AUTOHEAL_AI_MAX_RETRIES || '3'),
       visualAnalysisEnabled: process.env.AUTOHEAL_AI_VISUAL_ENABLED !== 'false',
     };
+  }
+
+  // LOCAL Model Configuration (supports multiple environment variable formats)
+  const localModelUrl = process.env.LOCAL_MODEL_URL ||
+                       process.env.AUTOHEAL_LOCAL_MODEL_URL ||
+                       process.env.LOCAL_AI_URL;
+
+  if (localModelUrl || process.env.AUTOHEAL_AI_PROVIDER === 'LOCAL') {
+    if (!config.ai) {
+      config.ai = {
+        provider: AIProvider.LOCAL,
+        timeout: 30000,
+        maxRetries: 3,
+        visualAnalysisEnabled: false,
+      };
+    }
+
+    // Override with LOCAL model specific configuration
+    config.ai.provider = AIProvider.LOCAL;
+    config.ai.baseUrl = localModelUrl;
+    config.ai.apiPath = process.env.LOCAL_MODEL_API_PATH ||
+                        process.env.AUTOHEAL_LOCAL_MODEL_API_PATH ||
+                        '/v1/chat/completions';
+    config.ai.model = process.env.LOCAL_MODEL_NAME ||
+                      process.env.AUTOHEAL_LOCAL_MODEL_NAME ||
+                      process.env.LOCAL_MODEL_MODEL ||
+                      'local-model';
+    config.ai.format = (process.env.LOCAL_MODEL_FORMAT ||
+                       process.env.AUTOHEAL_LOCAL_MODEL_FORMAT ||
+                       'openai') as 'openai' | 'ollama' | 'custom';
+    config.ai.timeout = parseInt(process.env.LOCAL_MODEL_TIMEOUT ||
+                                 process.env.AUTOHEAL_LOCAL_MODEL_TIMEOUT ||
+                                 '60000');
+    config.ai.temperature = parseFloat(process.env.LOCAL_MODEL_TEMPERATURE ||
+                                      process.env.AUTOHEAL_LOCAL_MODEL_TEMPERATURE ||
+                                      '0.1');
+    config.ai.maxTokens = parseInt(process.env.LOCAL_MODEL_MAX_TOKENS ||
+                                   process.env.AUTOHEAL_LOCAL_MODEL_MAX_TOKENS ||
+                                   '2048');
+    config.ai.visualAnalysisEnabled = false; // Local models typically don't support vision
   }
 
   // Cache Configuration

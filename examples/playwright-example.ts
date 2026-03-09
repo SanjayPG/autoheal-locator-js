@@ -45,26 +45,26 @@ async function main() {
     const titleText = await productTitle.textContent();
     console.log(`Found title: ${titleText}`);
 
-    console.log('=== Example 5: Add to cart button ===');
-    // Find "Add to cart" button for first product
-    const addToCartButton = await autoHeal.find(
-      page,
-      '[data-test="add-to-cart-sauce-labs-backpack"]',
-      'Add to cart button for Backpack'
-    );
-    await addToCartButton.click();
+    // console.log('=== Example 5: Add to cart button ===');
+    // // Find "Add to cart" button for first product
+    // const addToCartButton = await autoHeal.find(
+    //   page,
+    //   '[data-test="add-to-cart-sauce-labs-backpack"]',
+    //   'Add to cart button for Backpack'
+    // );
+    // await addToCartButton.click();
 
-    console.log('=== Example 6: Shopping cart badge ===');
-    const cartBadge = await autoHeal.find(page, '.shopping_cart_badge', 'Shopping cart badge');
-    const badgeText = await cartBadge.textContent();
-    console.log(`Cart items: ${badgeText}`);
+    // console.log('=== Example 6: Shopping cart badge ===');
+    // const cartBadge = await autoHeal.find(page, '.shopping_cart_badge', 'Shopping cart badge');
+    // const badgeText = await cartBadge.textContent();
+    // console.log(`Cart items: ${badgeText}`);
 
-    // Display cache metrics
-    console.log('\n=== Cache Metrics ===');
-    const metrics = autoHeal.getCacheMetrics();
-    console.log(`Hit Rate: ${(metrics.hitRate * 100).toFixed(2)}%`);
-    console.log(`Total Entries: ${metrics.totalEntries}`);
-    console.log(`Hits: ${metrics.hitCount}, Misses: ${metrics.missCount}`);
+    // // Display cache metrics
+    // console.log('\n=== Cache Metrics ===');
+    // const metrics = autoHeal.getCacheMetrics();
+    // console.log(`Hit Rate: ${(metrics.hitRate * 100).toFixed(2)}%`);
+    // console.log(`Total Entries: ${metrics.totalEntries}`);
+    // console.log(`Hits: ${metrics.hitCount}, Misses: ${metrics.missCount}`);
 
     console.log('\n✅ All tests passed!');
   } catch (error) {

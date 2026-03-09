@@ -11,7 +11,8 @@ AutoHeal now supports multiple AI providers for element healing! This document c
 | Anthropic (Claude) | ✅ Production Ready | `claude-3-5-sonnet-20241022` | [Anthropic Console](https://console.anthropic.com/) |
 | DeepSeek | ✅ Production Ready | `deepseek-chat` | [DeepSeek Platform](https://platform.deepseek.com/) |
 | Grok (xAI) | ✅ Production Ready | `grok-beta` | [xAI Console](https://console.x.ai/) |
-| Local/Custom | 🔧 Custom Implementation | N/A | Custom implementation required |
+| Groq | ✅ Production Ready | `llama-3.3-70b-versatile` | [Groq Console](https://console.groq.com/) |
+| **LOCAL** | ✅ **Production Ready** | `local-model` | [See LOCAL_MODEL_SUPPORT.md](docs/LOCAL_MODEL_SUPPORT.md) |
 
 ---
 
@@ -95,6 +96,8 @@ Supported provider names:
 - `'anthropic'` or `'ANTHROPIC'`
 - `'deepseek'` or `'DEEPSEEK'`
 - `'grok'` or `'GROK'`
+- `'groq'` or `'GROQ'`
+- `'local'` or `'LOCAL'` (use `.withLocalModel()` instead)
 
 ### Method 3: Configuration Object
 
@@ -247,6 +250,98 @@ const locator = AutoHealLocator.builder()
 
 ---
 
+### LOCAL - Local/Custom Models
+
+**Best for**: Privacy, cost savings, custom models, offline work
+
+```typescript
+const locator = AutoHealLocator.builder()
+  .withPlaywrightPage(page)
+  .withLocalModel('http://localhost:8000')
+  .build();
+```
+
+**Supported Endpoints**:
+- Localhost servers (http://localhost:8000)
+- Cloudflare tunnels (https://xyz.trycloudflare.com)
+- ngrok tunnels (https://xyz.ngrok.io)
+- Google Colab endpoints
+- Any OpenAI-compatible API
+- Ollama (http://localhost:11434)
+
+**Configuration Options**:
+```typescript
+const locator = AutoHealLocator.builder()
+  .withPlaywrightPage(page)
+  .withLocalModel('https://abc.trycloudflare.com', {
+    apiPath: '/v1/chat/completions',
+    format: 'openai', // 'openai' | 'ollama' | 'custom'
+    model: 'deepseek-coder-v2:16b',
+    temperature: 0.1,
+    maxTokens: 2048,
+    timeout: 60000,
+    headers: {
+      'Authorization': 'Bearer token',
+      'X-Custom-Header': 'value'
+    }
+  })
+  .build();
+```
+
+**Features**:
+- ✅ Free (no API costs)
+- ✅ Complete privacy
+- ✅ Full control
+- ✅ Works offline (localhost)
+- ✅ Supports custom fine-tuned models
+- ⚠️ Requires setup
+- ⚠️ Slower than cloud APIs (depends on hardware)
+
+**Request Formats**:
+- **OpenAI format** (default): Standard `/v1/chat/completions` endpoint
+- **Ollama format**: Ollama's `/api/generate` endpoint
+- **Custom format**: Simplified message-based format
+
+**Common Use Cases**:
+- Development and testing (cost savings)
+- Privacy-sensitive applications
+- Custom fine-tuned models
+- Offline/air-gapped environments
+- Learning and experimentation
+
+**Example - Ollama**:
+```typescript
+const locator = AutoHealLocator.builder()
+  .withPlaywrightPage(page)
+  .withLocalModel('http://localhost:11434', {
+    format: 'ollama',
+    model: 'llama2',
+    apiPath: '/api/generate'
+  })
+  .build();
+```
+
+**Example - Cloudflare Tunnel**:
+```typescript
+const locator = AutoHealLocator.builder()
+  .withPlaywrightPage(page)
+  .withLocalModel('https://abc.trycloudflare.com', {
+    apiPath: '/v1/chat/completions',
+    model: 'deepseek-coder-v2:16b',
+    timeout: 60000
+  })
+  .build();
+```
+
+**Documentation**: See [LOCAL_MODEL_SUPPORT.md](docs/LOCAL_MODEL_SUPPORT.md) for complete guide including:
+- Server implementation examples (Flask, FastAPI)
+- Google Colab setup
+- Request/response formats
+- Troubleshooting
+- Security considerations
+
+---
+
 ## Complete Example
 
 Here's a complete example showing how to switch between providers:
@@ -326,6 +421,8 @@ Approximate costs for 1,000 healing operations (estimated):
 | Anthropic | claude-3-haiku | $1-2 | Fast |
 | DeepSeek | deepseek-chat | $0.50-1 | Fast |
 | Grok | grok-beta | $5-10 | Medium |
+| Groq | llama-3.3-70b | Free (quota limits) | Very Fast |
+| **LOCAL** | **Any local model** | **$0 (Free)** | **Varies** |
 
 *Note: Costs vary based on DOM size, screenshot analysis, and actual usage patterns.*
 

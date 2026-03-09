@@ -29,7 +29,7 @@ export class AutoHealReporter {
     // Default values or from configuration
     this.aiProvider = aiConfig?.provider || 'Gemini';
     this.aiModel = aiConfig?.model || 'gemini-2.0-flash';
-    this.apiEndpoint = this.getApiEndpointForProvider(aiConfig?.provider);
+    this.apiEndpoint = this.getApiEndpointForProvider(aiConfig?.provider, aiConfig?.baseUrl);
     this.domTemperature = aiConfig?.domTemperature || 0.1;
     this.visualTemperature = aiConfig?.visualTemperature || 0.0;
     this.domMaxTokens = aiConfig?.domMaxTokens || 500;
@@ -40,7 +40,7 @@ export class AutoHealReporter {
   /**
    * Get the API endpoint URL for a given provider
    */
-  private getApiEndpointForProvider(provider?: string): string {
+  private getApiEndpointForProvider(provider?: string, baseUrl?: string): string {
     const providerUpper = (provider || 'GOOGLE_GEMINI').toUpperCase();
 
     switch (providerUpper) {
@@ -59,7 +59,7 @@ export class AutoHealReporter {
       case 'GROQ':
         return 'https://api.groq.com/openai/v1/chat/completions';
       case 'LOCAL':
-        return 'http://localhost:11434/api/generate';
+        return baseUrl || 'http://localhost:8000';
       default:
         return 'https://generativelanguage.googleapis.com/v1beta/models';
     }
