@@ -15,7 +15,7 @@ async function main() {
     .withSeleniumDriver(driver)
     .withAIProvider('gemini') // Default: gemini-1.5-flash-latest
     // Switch to Groq: .withAIProvider('groq')
-    // Override model: .withAIProvider('gemini', undefined, 'gemini-2.0-flash-exp')
+    // Override model: .withAIProvider('gemini', undefined, 'gemini-2.5-flash')
     .withStrategy(ExecutionStrategy.SMART_SEQUENTIAL)
     .build();
 

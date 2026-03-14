@@ -13,7 +13,7 @@ export class GeminiAIService implements AIService {
 
   constructor(
     apiKey: string,
-    model: string = 'gemini-2.0-flash-exp',
+    model: string = 'gemini-2.5-flash',
     timeout: number = 30000
   ) {
     this.apiKey = apiKey;

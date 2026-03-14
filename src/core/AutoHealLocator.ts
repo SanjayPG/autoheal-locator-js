@@ -943,7 +943,7 @@ export class AutoHealLocatorBuilder {
   private getDefaultModelForProvider(provider: AIProvider): string {
     switch (provider) {
       case AIProvider.GOOGLE_GEMINI:
-        return 'gemini-2.0-flash-exp';
+        return 'gemini-2.5-flash';
       case AIProvider.OPENAI:
         return 'gpt-4o';
       case AIProvider.ANTHROPIC:
@@ -955,7 +955,7 @@ export class AutoHealLocatorBuilder {
       case AIProvider.GROQ:
         return 'llama-3.3-70b-versatile';
       default:
-        return 'gemini-2.0-flash-exp';
+        return 'gemini-2.5-flash';
     }
   }
 
@@ -1142,7 +1142,7 @@ export class AutoHealLocatorBuilder {
   private getDefaultModel(provider: AIProvider): string {
     switch (provider) {
       case AIProvider.GOOGLE_GEMINI:
-        return 'gemini-2.0-flash-exp';
+        return 'gemini-2.5-flash';
       case AIProvider.OPENAI:
         return 'gpt-4o';
       case AIProvider.ANTHROPIC:
@@ -1154,7 +1154,7 @@ export class AutoHealLocatorBuilder {
       case AIProvider.GROQ:
         return 'llama-3.3-70b-versatile';
       default:
-        return 'gemini-2.0-flash-exp';
+        return 'gemini-2.5-flash';
     }
   }
 
