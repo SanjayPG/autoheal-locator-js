@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.5] - 2026-03-14
+
+### Changed
+- **Gemini Model Stability Fix**: Changed default Gemini model from `gemini-2.5-flash` to `gemini-2.0-flash`
+  - `gemini-2.5-flash` has JSON response reliability issues in production
+  - `gemini-2.0-flash` is the stable, production-ready version
+  - Updated in all source files and documentation
+  - Provides consistent JSON parsing for vibe-framework integration
+
+### Fixed
+- Fixed unreliable JSON responses from Gemini API that caused parsing failures
+- Improved stability for command parsing and element healing
+
 ## [1.1.4] - 2026-03-14
 
 ### Changed

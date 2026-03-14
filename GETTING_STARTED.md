@@ -207,7 +207,7 @@ const autoHeal = AutoHealLocator.builder()
     ai: {
       provider: AIProvider.GOOGLE_GEMINI,
       apiKey: process.env.GEMINI_API_KEY,
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.0-flash',
       timeout: 30000,
     },
     cache: {

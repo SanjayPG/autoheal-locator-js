@@ -518,7 +518,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 # ============================================
 # AI Model Configuration
 # ============================================
-AUTOHEAL_AI_MODEL=gemini-2.5-flash
+AUTOHEAL_AI_MODEL=gemini-2.0-flash
 AUTOHEAL_AI_TIMEOUT=30000
 AUTOHEAL_AI_MAX_RETRIES=3
 
@@ -562,7 +562,7 @@ const autoHeal = AutoHealLocator.builder()
     ai: {
       provider: AIProvider.GOOGLE_GEMINI,
       apiKey: process.env.GEMINI_API_KEY!,
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.0-flash',
       timeout: 30000,
       maxRetries: 3,
       visualAnalysisEnabled: true,
@@ -754,7 +754,7 @@ AUTOHEAL_EXECUTION_STRATEGY=SMART_SEQUENTIAL
 
 | Provider | Model Options | Speed | Cost | Best For |
 |----------|--------------|-------|------|----------|
-| **Google Gemini** | gemini-2.5-flash | ⚡⚡⚡ | 💰 | **Recommended** |
+| **Google Gemini** | gemini-2.0-flash | ⚡⚡⚡ | 💰 | **Recommended** |
 | **OpenAI** | gpt-4o, gpt-3.5-turbo | ⚡⚡ | 💰💰💰 | High accuracy |
 | **Anthropic Claude** | claude-3-sonnet | ⚡⚡ | 💰💰 | Complex reasoning |
 | **DeepSeek** | deepseek-chat | ⚡⚡ | 💰 | Cost-effective |

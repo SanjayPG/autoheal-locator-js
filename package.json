@@ -1,6 +1,6 @@
 {
   "name": "@sdetsanjay/autoheal-locator",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "AI-powered test automation framework that automatically heals broken locators for Playwright and Selenium WebDriver in JavaScript/TypeScript. Supports cloud AI providers and local/custom models.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

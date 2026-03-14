@@ -6,7 +6,7 @@ AutoHeal now supports multiple AI providers for element healing! This document c
 
 | Provider | Status | Default Model | API Documentation |
 |----------|--------|---------------|-------------------|
-| Google Gemini | ✅ Production Ready | `gemini-2.5-flash` | [Google AI Studio](https://makersuite.google.com/app/apikey) |
+| Google Gemini | ✅ Production Ready | `gemini-2.0-flash` | [Google AI Studio](https://makersuite.google.com/app/apikey) |
 | OpenAI | ✅ Production Ready | `gpt-4o` | [OpenAI Platform](https://platform.openai.com/api-keys) |
 | Anthropic (Claude) | ✅ Production Ready | `claude-3-5-sonnet-20241022` | [Anthropic Console](https://console.anthropic.com/) |
 | DeepSeek | ✅ Production Ready | `deepseek-chat` | [DeepSeek Platform](https://platform.deepseek.com/) |
@@ -156,7 +156,7 @@ const locator = AutoHealLocator.builder()
 ```
 
 **Models**:
-- `gemini-2.5-flash` (default) - Latest experimental, fast
+- `gemini-2.0-flash` (default) - Latest experimental, fast
 - `gemini-1.5-pro` - More capable, slower
 - `gemini-1.5-flash` - Balanced speed/quality
 
@@ -414,7 +414,7 @@ Approximate costs for 1,000 healing operations (estimated):
 
 | Provider | Model | Cost per 1K operations | Speed |
 |----------|-------|------------------------|-------|
-| Gemini | gemini-2.5-flash | Free (quota limits) | Fast |
+| Gemini | gemini-2.0-flash | Free (quota limits) | Fast |
 | OpenAI | gpt-4o | $5-10 | Medium |
 | OpenAI | gpt-3.5-turbo | $1-2 | Fast |
 | Anthropic | claude-3-5-sonnet | $6-12 | Medium |

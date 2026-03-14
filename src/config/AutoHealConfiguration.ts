@@ -118,7 +118,7 @@ export interface AutoHealConfiguration {
 export const DEFAULT_CONFIG: AutoHealConfiguration = {
   ai: {
     provider: AIProvider.GOOGLE_GEMINI,
-    model: 'gemini-2.5-flash',
+    model: 'gemini-2.0-flash',
     timeout: 30000,
     maxRetries: 3,
     visualAnalysisEnabled: true,
